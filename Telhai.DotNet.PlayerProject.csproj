@@ -8,4 +8,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Pictures\default_Video.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Pictures\default_Video.jpg" />
+  </ItemGroup>
+
 </Project>

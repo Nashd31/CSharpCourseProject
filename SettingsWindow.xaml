@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Telhai.DotNet.PlayerProject"
         mc:Ignorable="d"
-        Title="Settings" Height="300" Width="400"
+        Title="Settings" Height="400" Width="500"
         Background="#333" Foreground="White" WindowStartupLocation="CenterScreen">
     <Grid Margin="15">
         <Grid.RowDefinitions>

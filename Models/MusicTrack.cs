@@ -9,7 +9,12 @@ namespace Telhai.DotNet.PlayerProject.Models
         public string Title { get; set; } = string.Empty;
         public string FilePath { get; set; } = string.Empty;
 
-        // This makes sure the ListBox shows the Name, not "MyMusicPlayer.MusicTrack"
+        // Metadata for the API
+        public string? ArtistName { get; set; }
+        public string? AlbumName { get; set; }
+        public string? ArtworkUrl { get; set; }
+
+        // This makes sure the ListBox shows the Name
         public override string ToString()
         {
             return Title;
