@@ -1,5 +1,4 @@
-﻿
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Text.Json;
 using Telhai.DotNet.PlayerProject.Models;
 
@@ -9,7 +8,7 @@ namespace Telhai.DotNet.PlayerProject.Services
 {
     public class ItunesService
     {
-        private static readonly HttpClient _httpClient = new HttpClient
+        private static readonly HttpClient _httpClient = new()
         {
             BaseAddress = new Uri("https://itunes.apple.com/")
         };
@@ -21,41 +20,42 @@ namespace Telhai.DotNet.PlayerProject.Services
             if (string.IsNullOrWhiteSpace(songTitle))
                 return null;
 
-
-            // build the request URL
-            string encodedTerm = Uri.EscapeDataString(songTitle);
-            string url = $"search?term={encodedTerm}&media=music&limit=1";
-
-
-            using HttpResponseMessage response =
-                await _httpClient.GetAsync(url, cancellationToken);
-
-            response.EnsureSuccessStatusCode();
-
-            // Get the response content as a JSON string
-            string json = await response.Content.ReadAsStringAsync(cancellationToken);
-
-            // Deserialize the Json object 
-            var data = JsonSerializer.Deserialize<ItunesSearchResponse>(
-                json,
-                new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-
-            var item = data?.Results?.FirstOrDefault();
-            if (item == null)
-                return null;
-
-            return new ItunesTrackInfo
+            try
             {
-                TrackName = item.TrackName,
-                ArtistName = item.ArtistName,
-                AlbumName = item.CollectionName,
-                ArtworkUrl = item.ArtworkUrl100
-            };
+                // build the request URL
+                string cleanTerm = songTitle.Replace("-", " ").Replace("_", " ");
+                string url = $"search?term={Uri.EscapeDataString(cleanTerm)}&media=music&limit=1";
+
+                using HttpResponseMessage response =
+                    await _httpClient.GetAsync(url, cancellationToken);
+
+                response.EnsureSuccessStatusCode();
+
+                // Get the response content as a JSON string
+                string json = await response.Content.ReadAsStringAsync(cancellationToken);
+
+                // Deserialize the Json object 
+                ItunesSearchResponse? data = JsonSerializer.Deserialize<ItunesSearchResponse>(
+                    json,
+                    new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                ItunesResultItem? item = data?.Results?.FirstOrDefault();
+                return item == null
+                    ? null
+                    : new ItunesTrackInfo
+                    {
+                        TrackName = item.TrackName,
+                        ArtistName = item.ArtistName,
+                        AlbumName = item.CollectionName,
+                        ArtworkUrl = item.ArtworkUrl100
+                    };
+            }
+            catch (OperationCanceledException) { return null; }
+            catch { return null; }
         }
     }
 }
 
-        

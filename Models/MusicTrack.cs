@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Telhai.DotNet.PlayerProject.Models
+﻿namespace Telhai.DotNet.PlayerProject.Models
 {
     public class MusicTrack
     {
@@ -13,6 +9,12 @@ namespace Telhai.DotNet.PlayerProject.Models
         public string? ArtistName { get; set; }
         public string? AlbumName { get; set; }
         public string? ArtworkUrl { get; set; }
+
+        // List for user-added images from the Edit Window
+        public List<string> UserImages { get; set; } = [];
+
+        // Flag to check if we already have metadata from API/Manual edit
+        public bool HasMetadata { get; set; } = false;
 
         // This makes sure the ListBox shows the Name
         public override string ToString()

@@ -5,7 +5,7 @@ namespace Telhai.DotNet.PlayerProject
 {
     public class AppSettings
     {
-        public List<string> MusicFolders { get; set; } = new List<string>();
+        public List<string> MusicFolders { get; set; } = [];
         private const string SETTINGS_FILE = "settings.json";
 
         public static void Save(AppSettings settings)

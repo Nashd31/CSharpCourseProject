@@ -1,18 +1,18 @@
 ﻿<Window x:Class="Telhai.DotNet.PlayerProject.MusicPlayer"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Music Player" Height="600" Width="1000"
+        Title="Nashed Awidat - Pro Music Player" Height="600" Width="1000"
+        Icon="pack://application:,,,/Pictures/Icon.png"
         Background="#222" Foreground="White" WindowStartupLocation="CenterScreen">
 
-    <Grid Margin="15">
+    <Grid Margin="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,20,0">
-            
-            <Border BorderBrush="#444" BorderThickness="1" CornerRadius="10" Width="200" Height="200" Margin="0,0,0,20">
+            <Border BorderBrush="#444" BorderThickness="1" CornerRadius="10" Width="250" Height="250" Margin="0,0,0,20">
                 <Image x:Name="imgAlbumArt" Stretch="UniformToFill">
                     <Image.Source>
                         <BitmapImage UriSource="pack://application:,,,/Pictures/default_Video.jpg" />
@@ -22,11 +22,11 @@
 
             <TextBlock x:Name="txtCurrentSong" Text="No Song Selected" FontSize="22" FontWeight="Bold" HorizontalAlignment="Center" TextWrapping="Wrap"/>
             <TextBlock x:Name="txtArtistAlbum" Text="" FontSize="14" Foreground="#AAA" HorizontalAlignment="Center" Margin="0,5,0,5"/>
-            <TextBlock x:Name="txtFilePath" Text="" FontSize="10" Foreground="#666" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+            <TextBlock x:Name="txtFilePath" Text="" FontSize="10" Foreground="#666" HorizontalAlignment="Center" Margin="0,0,0,20" TextWrapping="Wrap"/>
 
             <DockPanel LastChildFill="True" Margin="0,0,0,20">
-                <TextBlock x:Name="lblCurrentTime" Text="00:00" Width="40" VerticalAlignment="Center"/>
-                <TextBlock x:Name="lblTotalTime" Text="00:00" DockPanel.Dock="Right" Width="40" TextAlignment="Right" VerticalAlignment="Center"/>
+                <TextBlock x:Name="lblCurrentTime" Text="00:00" Width="45" VerticalAlignment="Center"/>
+                <TextBlock x:Name="lblTotalTime" Text="00:00" DockPanel.Dock="Right" Width="45" TextAlignment="Right" VerticalAlignment="Center"/>
                 <Slider x:Name="sliderProgress" IsMoveToPointEnabled="True"
                         PreviewMouseLeftButtonDown="Slider_DragStarted"
                         PreviewMouseLeftButtonUp="Slider_DragCompleted"/>
@@ -49,19 +49,25 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock Text="Library" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
-
             <ListBox x:Name="lstLibrary" Grid.Row="1" Background="#333" Foreground="White" 
+                     DisplayMemberPath="Title"
                      SelectionChanged="LstLibrary_SelectionChanged"
                      MouseDoubleClick="LstLibrary_MouseDoubleClick"/>
 
-            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0">
-                <Button Content="Add MP3" Click="BtnAdd_Click" Margin="5" Padding="5"/>
-                <Button Content="Remove" Click="BtnRemove_Click" Margin="5" Padding="5"/>
-                <Button Content="Settings" Click="BtnSettings_Click" Margin="5" Padding="5"/>
-            </StackPanel>
+            <UniformGrid Grid.Row="2" Columns="3" Margin="0,10,0,0">
+                <Button Content="Add MP3" Click="BtnAdd_Click" Margin="3" Padding="5"/>
+                <Button Content="Remove" Click="BtnRemove_Click" Margin="3" Padding="5"/>
+                <Button Content="Settings" Click="BtnSettings_Click" Margin="3" Padding="5"/>
+            </UniformGrid>
+
+            <UniformGrid Grid.Row="3" Columns="1" Margin="0,5,0,0">
+                <Button Content="Edit Song Info" Click="BtnEdit_Click" Margin="3" Padding="10" 
+                        Background="#007ACC" Foreground="White" FontWeight="Bold"/>
+            </UniformGrid>
         </Grid>
     </Grid>
 </Window>

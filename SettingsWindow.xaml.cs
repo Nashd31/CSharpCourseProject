@@ -11,7 +11,7 @@ namespace Telhai.DotNet.PlayerProject
     public partial class SettingsWindow : Window
     {
 
-        private AppSettings currentSettings;
+        private readonly AppSettings currentSettings;
 
         // Event to send data back to Main Window
         public event Action<List<MusicTrack>>? OnScanCompleted;
@@ -32,7 +32,7 @@ namespace Telhai.DotNet.PlayerProject
         // Placeholders to make it build
         private void BtnAddFolder_Click(object sender, RoutedEventArgs e)
         {
-            OpenFolderDialog dialog = new OpenFolderDialog();
+            OpenFolderDialog dialog = new();
 
             if (dialog.ShowDialog() == true)
             {
@@ -49,14 +49,14 @@ namespace Telhai.DotNet.PlayerProject
         {
             if (lstFolders.SelectedItem is string folder)
             {
-                currentSettings.MusicFolders.Remove(folder);
+                _ = currentSettings.MusicFolders.Remove(folder);
                 AppSettings.Save(currentSettings);
                 RefreshFolderList();
             }
         }
         private void BtnScan_Click(object sender, RoutedEventArgs e)
         {
-            List<MusicTrack> foundTracks = new List<MusicTrack>();
+            List<MusicTrack> foundTracks = [];
 
             foreach (string folderPath in currentSettings.MusicFolders)
             {
@@ -79,8 +79,8 @@ namespace Telhai.DotNet.PlayerProject
             // Send data back to MainWindow
             OnScanCompleted?.Invoke(foundTracks);
 
-            MessageBox.Show($"Scan Complete! Found {foundTracks.Count} songs.");
-            this.Close();
+            _ = MessageBox.Show($"Scan Complete! Found {foundTracks.Count} songs.");
+            Close();
         }
     }
 }

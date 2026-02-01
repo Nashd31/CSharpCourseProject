@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Telhai.DotNet.PlayerProject"
         mc:Ignorable="d"
         Title="Settings" Height="400" Width="500"
+        Icon="pack://application:,,,/Pictures/Icon.png"
         Background="#333" Foreground="White" WindowStartupLocation="CenterScreen">
     <Grid Margin="15">
         <Grid.RowDefinitions>
